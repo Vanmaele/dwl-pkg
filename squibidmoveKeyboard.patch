@@ -1,0 +1,61 @@
+diff -ruN a/config.def.h b/config.def.h
+--- a/config.def.h	2022-12-31 21:10:30.985030863 -0500
++++ b/config.def.h	2023-01-28 17:59:50.931845897 -0500
+@@ -121,6 +121,14 @@
+ 	{ MODKEY,                    XKB_KEY_m,          setlayout,      {.v = &layouts[2]} },
+ 	{ MODKEY,                    XKB_KEY_space,      setlayout,      {0} },
+ 	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_space,      togglefloating, {0} },
++  { MODKEY,                    XKB_KEY_Up,         movekeyboard,   {.v = "0x -25y 0w 0h"} },
++  { MODKEY,                    XKB_KEY_Down,       movekeyboard,   {.v = "0x 25y 0w 0h"} },
++  { MODKEY,                    XKB_KEY_Left,       movekeyboard,   {.v = "-25x 0y 0w 0h"} },
++  { MODKEY,                    XKB_KEY_Right,      movekeyboard,   {.v = "25x 0y 0w 0h"} },
++  { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_Up,         movekeyboard,   {.v = "0x 0y 0w -25h"} },
++  { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_Down,       movekeyboard,   {.v = "0x 0y 0w 25h"} },
++  { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_Left,       movekeyboard,   {.v = "0x 0y -25w 0h"} },
++  { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_Right,      movekeyboard,   {.v = "0x 0y 25w 0h"} },
+ 	{ MODKEY,                    XKB_KEY_e,         togglefullscreen, {0} },
+ 	{ MODKEY,                    XKB_KEY_0,          view,           {.ui = ~0} },
+ 	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_parenright, tag,            {.ui = ~0} },
+diff -ruN a/dwl.c b/dwl.c
+--- a/dwl.c	2022-12-31 21:10:30.986030864 -0500
++++ b/dwl.c	2023-01-28 18:05:14.264883177 -0500
+@@ -249,6 +249,7 @@
+ static void motionnotify(uint32_t time);
+ static void motionrelative(struct wl_listener *listener, void *data);
+ static void moveresize(const Arg *arg);
++static void movekeyboard(const Arg *arg);
+ static void outputmgrapply(struct wl_listener *listener, void *data);
+ static void outputmgrapplyortest(struct wlr_output_configuration_v1 *config, int test);
+ static void outputmgrtest(struct wl_listener *listener, void *data);
+@@ -1534,6 +1535,31 @@
+ }
+ 
+ void
++movekeyboard(const Arg *arg)
++{
++	Client *c;
++  struct wlr_box newgeom;
++  int x, y, w, h;
++  char xAbs, yAbs, wAbs, hAbs;
++  c = focustop(selmon);
++
++  if (!c || !arg)
++    return;
++  if (!c->isfloating)
++    return;
++  if (sscanf((char *)arg->v, "%d%c %d%c %d%c %d%c", &x, &xAbs, &y, &yAbs, &w, &wAbs, &h, &hAbs) != 8)
++    return;
++
++  newgeom.x = c->geom.x + x;
++  newgeom.y = c->geom.y + y;
++  newgeom.height = c->geom.height + h;
++  newgeom.width = c-> geom.width + w;
++
++  resize(c, newgeom, 0);
++  wlr_cursor_warp_closest( cursor, NULL, c->geom.x + c->geom.width / 2.0, c->geom.y + c->geom.height / 2.0);
++}
++
++void
+ outputmgrapply(struct wl_listener *listener, void *data)
+ {
+ 	struct wlr_output_configuration_v1 *config = data;
