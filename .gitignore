@@ -3,3 +3,4 @@ pkg
 src
 *.patch
 !squibidmoveKeyboard.patch
+config.def.h
