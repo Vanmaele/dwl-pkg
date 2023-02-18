@@ -1,5 +1,5 @@
-# Maintainer: Devin J. Pohly <djpohly+arch@gmail.com>
-pkgname=dwl-git
+# Maintainer: Xorell <xorell@protonmail.com>
+pkgname=dwl-xorell-git
 pkgver=0.4.r5.f8373cc
 pkgrel=1
 pkgdesc="Simple, hackable dynamic tiling Wayland compositor (dwm for Wayland)"
@@ -9,8 +9,8 @@ license=('GPL')
 depends=('wlroots>=0.15')
 makedepends=('git' 'wayland-protocols')
 optdepends=('xorg-xwayland: for XWayland support')
-provides=("${pkgname%-git}")
-conflicts=("${pkgname%-git}")
+provides=("${pkgname%-xorell-git}")
+conflicts=("${pkgname%-xorell-git}")
 # append #branch=wlroots-next to build against wlvroots-git
 source=('git+https://github.com/djpohly/dwl'
 	'autostart.patch::https://github.com/djpohly/dwl/compare/main...sevz17:autostart.patch'
@@ -26,7 +26,7 @@ sha256sums=('SKIP'
             'f2f37f49d05316c285b7cc0a059e3601b460427afd09f0d38c93e269cb8aeba9')
 
 prepare() {
-	cd "$srcdir/${pkgname%-git}"
+	cd "$srcdir/${pkgname%-xorell-git}"
 
 	# Uncomment to compile with XWayland support
 	sed -i -e '/-DXWAYLAND/s/^#//' config.mk
@@ -69,16 +69,16 @@ prepare() {
 }
 
 pkgver() {
-	cd "$srcdir/${pkgname%-git}"
+	cd "$srcdir/${pkgname%-xorell-git}"
 	printf "%s" "$(git describe --long | sed 's/^v//;s/\([^-]*-\)g/r\1/;s/-/./g')"
 }
 
 build() {
-	cd "$srcdir/${pkgname%-git}"
+	cd "$srcdir/${pkgname%-xorell-git}"
 	make
 }
 
 package() {
-	cd "$srcdir/${pkgname%-git}"
+	cd "$srcdir/${pkgname%-xorell-git}"
 	make PREFIX="$pkgdir/usr/" install
 }
