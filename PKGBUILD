@@ -35,10 +35,11 @@ prepare() {
 	git checkout "f8373cc"
 
 	patch -p1 -t --input "$srcdir/autostart.patch"
-	# patch -p1 -t --input "$srcdir/swallow.patch"
+	patch -p1 -t --input "$srcdir/swallow.patch"
 	patch -p1 -t --input "$srcdir/vanitygaps.patch"
 	patch -p1 -t --input "$BUILDDIR/squibidmoveKeyboard.patch"
 	patch -p1 -t --input "$srcdir/shiftview.patch"
+	patch -p1 -t --input "$BUILDDIR/ipc-somebar.patch"
 
 	# This package provides a mechanism to provide a custom config.h. Multiple
 	# configuration states are determined by the presence of two files in

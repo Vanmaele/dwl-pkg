@@ -24,12 +24,12 @@ static const char *const autostart[] = {
 };
 
 /* tagging */
-static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+static const char *tags[] = { "", "", "3", "4", "5", "6", "7", "󰙯", "󰓓" };
 
 static const Rule rules[] = {
         /* app_id     		title       tags mask     isfloating   monitor */
-        { "Foot",      	        NULL,       1 << 0,       0,           -1 },
-        { "Chromium",  	        NULL,       1 << 1,       0,           -1 },
+        { "Foot",      	        NULL,       1 << 1,       0,           -1 },
+        { "Chromium",  	        NULL,       1 << 0,       0,           -1 },
         { "discord",        	NULL,       1 << 8,       0,           -1 },
 };
 
