@@ -32,6 +32,8 @@ prepare() {
 	sed -i -e '/-DXWAYLAND/s/^#//' config.mk
 	sed -i -e '/xcb/s/^#//' config.mk
 
+	git checkout "f8373cc"
+
 	patch -p1 -t --input "$srcdir/autostart.patch"
 	# patch -p1 -t --input "$srcdir/swallow.patch"
 	patch -p1 -t --input "$srcdir/vanitygaps.patch"
@@ -75,6 +77,7 @@ pkgver() {
 
 build() {
 	cd "$srcdir/${pkgname%-xorell-git}"
+	make clean
 	make
 }
 
