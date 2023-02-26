@@ -1,6 +1,6 @@
 # Maintainer: Xorell <xorell@protonmail.com>
 pkgname=dwl-xorell-git
-pkgver=0.4.r5.f8373cc
+pkgver=0.4.r8.e4921fa
 pkgrel=1
 pkgdesc="Simple, hackable dynamic tiling Wayland compositor (dwm for Wayland)"
 arch=('x86_64')
@@ -20,7 +20,7 @@ source=('git+https://github.com/djpohly/dwl'
 )
 
 sha256sums=('SKIP'
-            '342c6853baa44b80af712e0242d2931e6b66e3691fab73bfd4ce4b25c6ade3f6'
+            '1933ed3c00a91c1fc166b828d60f5491dd0c6393aa6236a369f81401be6f4561'
             'a6f3fcb440e3073799b8c1af83ff18cd9fd4c5809ebcfd8cff9bd5909ef35248'
             'ad47fb3c58ef15999ab9cbba4e72c517716b756578d1b361a4777cc458f80a08'
             'f2f37f49d05316c285b7cc0a059e3601b460427afd09f0d38c93e269cb8aeba9')
@@ -32,7 +32,7 @@ prepare() {
 	sed -i -e '/-DXWAYLAND/s/^#//' config.mk
 	sed -i -e '/xcb/s/^#//' config.mk
 
-	git checkout "f8373cc"
+	git checkout "e4921fad28081f36fa0daa61b4bef7022a21b340"
 
 	patch -p1 -t --input "$srcdir/autostart.patch"
 	patch -p1 -t --input "$srcdir/swallow.patch"

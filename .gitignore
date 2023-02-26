@@ -2,5 +2,6 @@ dwl*
 pkg
 src
 *.patch
+!ipc-somebar.patch
 !squibidmoveKeyboard.patch
 config.def.h
