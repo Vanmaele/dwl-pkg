@@ -18,13 +18,13 @@ static const float fullscreen_bg[]         = {0.1, 0.1, 0.1, 1.0};
 static const char *const autostart[] = {
         /* "someblocks", NULL, */
         "chromium", NULL,
-        "foot", NULL,
+        "discord", NULL,
         "/home/r2d2/.wl-profile-post", NULL,
         NULL /* terminate */
 };
 
 /* tagging */
-static const char *tags[] = { "", "", "3", "4", "5", "6", "7", "󰙯", "󰓓" };
+static const char *tags[] = { "", "", "3", "4", "5", "6", "7", "8", "󰙯" };
 
 static const Rule rules[] = {
         /* app_id     		title       tags mask     isfloating   monitor */
@@ -124,7 +124,6 @@ static const enum libinput_config_tap_button_map button_map = LIBINPUT_CONFIG_TA
 /* commands */
 static const char *termcmd[]    = { "foot", NULL };
 static const char *menucmd[]    = { "bemenu-run", NULL };
-static const char *discordcmd[] = { "discord", NULL };
 static const char *suspendcmd[] = { "systemctl", "suspend", NULL };
 static const char *lockcmd[]    = { "waylock", NULL };
 static const char *webcmd[]     = { "chromium", NULL };
@@ -175,15 +174,15 @@ static const Key keys[] = {
     { MODKEY,                    XKB_KEY_o,                     incnmaster,     {.i = -1} },
 	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_O,                     incnmaster,     {.i = +1} },
 
-    { MODKEY,                    XKB_KEY_p,                     spawn,          {.v = menucmd} },
-	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_P,     	            spawn,          {.v = suspendcmd} },
+    /* { MODKEY,                    XKB_KEY_p,                     spawn,          {.v = menucmd} }, */
+	/* { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_P,     	            spawn,          {.v = suspendcmd} }, */
 
 	{ MODKEY,                 XKB_KEY_a,                     spawn,          {.v = audioconf} },
 	/* { MODKEY,                 XKB_KEY_A,                     spawn,          {0} }, */
 	/* { MODKEY,                 XKB_KEY_s,                     spawn,          {0} }, */
 	/* { MODKEY,                 XKB_KEY_S,                     spawn,          {0} }, */
 
-    { MODKEY,                    XKB_KEY_d,                     spawn,          {.v = discordcmd} },
+    { MODKEY,                    XKB_KEY_d,                     spawn,          {.v = menucmd} },
 	/* { MODKEY,                    XKB_KEY_D,                     spawn,          {.v = discordcmd} }, */
 
     { MODKEY,                    XKB_KEY_f,                     togglefullscreen, {0} },
