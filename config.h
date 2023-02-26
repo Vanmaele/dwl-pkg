@@ -125,10 +125,12 @@ static const enum libinput_config_tap_button_map button_map = LIBINPUT_CONFIG_TA
 static const char *termcmd[]    = { "foot", NULL };
 static const char *menucmd[]    = { "bemenu-run", NULL };
 static const char *discordcmd[] = { "discord", NULL };
-static const char *suspendcmd[] = { "loginctl", "suspend", NULL };
+static const char *suspendcmd[] = { "systemctl", "suspend", NULL };
+static const char *lockcmd[]    = { "waylock", NULL };
 static const char *webcmd[]     = { "chromium", NULL };
 static const char *snippet[]    = { "snippet", "0", NULL};
 static const char *mutevol[]    = { "pamixer", "-t", NULL };
+static const char *audioconf[]    = { "setsid", "-f", "foot", "-e" , "pulsemixer", NULL };
 
 #include "shiftview.c"
 
@@ -147,10 +149,10 @@ static const Key keys[] = {
 	TAGKEYS(          XKB_KEY_9, XKB_KEY_parenleft,                             8),
 
     { MODKEY,                    XKB_KEY_q,                     killclient,     {0} },
-    /* { MODKEY,                    XKB_KEY_Q,                     killclient,     {0} }, */
+    { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_Q,                     spawn,          {.v = lockcmd} },
 	
     { MODKEY,                    XKB_KEY_w,                     spawn,          {.v = webcmd} },
-	/* { MODKEY,                 XKB_KEY_W,                     spawn,          {0} }, */
+	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_W,                     spawn,          {.v = suspendcmd} },
 
     /* { MODKEY,                    XKB_KEY_e,                     togglefullscreen, {0} }, */
 	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_E,                     quit,           {0} },
@@ -176,7 +178,7 @@ static const Key keys[] = {
     { MODKEY,                    XKB_KEY_p,                     spawn,          {.v = menucmd} },
 	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_P,     	            spawn,          {.v = suspendcmd} },
 
-	/* { MODKEY,                 XKB_KEY_a,                     spawn,          {0} }, */
+	{ MODKEY,                 XKB_KEY_a,                     spawn,          {.v = audioconf} },
 	/* { MODKEY,                 XKB_KEY_A,                     spawn,          {0} }, */
 	/* { MODKEY,                 XKB_KEY_s,                     spawn,          {0} }, */
 	/* { MODKEY,                 XKB_KEY_S,                     spawn,          {0} }, */
@@ -261,9 +263,9 @@ static const Key keys[] = {
 	{ 0,                         XKB_KEY_XF86AudioRaiseVolume,  spawn,    VOLCTRL('+',"5") },
 	{ WLR_MODIFIER_SHIFT,        XKB_KEY_XF86AudioLowerVolume,  spawn,    VOLCTRL('-',"1") },
 	{ WLR_MODIFIER_SHIFT,        XKB_KEY_XF86AudioRaiseVolume,  spawn,    VOLCTRL('+',"1") },
-	{ 0,                         XKB_KEY_F1,                    spawn,    AUDIOCTRL("previous") },
-	{ 0,                         XKB_KEY_F2,                    spawn,    AUDIOCTRL("next") },
-	{ 0,                         XKB_KEY_F1,                    spawn,    AUDIOCTRL("previous") },
+	/* { 0,                         XKB_KEY_F1,                    spawn,    AUDIOCTRL("previous") }, */
+	/* { 0,                         XKB_KEY_F2,                    spawn,    AUDIOCTRL("next") }, */
+	/* { 0,                         XKB_KEY_F1,                    spawn,    AUDIOCTRL("previous") }, */
 
     /* // { MODKEY,                 XK_Escape,                     spawn,    AUDIOCTRL("play-pause") }, */
 	/* { MODKEY,                    XKB_KEY_Escape,                spawn,    SHCMD("~/scripts/media-toggle.sh") }, */
