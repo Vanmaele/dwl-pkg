@@ -125,11 +125,11 @@ static const enum libinput_config_tap_button_map button_map = LIBINPUT_CONFIG_TA
 static const char *termcmd[]    = { "foot", NULL };
 static const char *menucmd[]    = { "bemenu-run", NULL };
 static const char *suspendcmd[] = { "systemctl", "suspend", NULL };
-static const char *lockcmd[]    = { "waylock", NULL };
+static const char *sysactcmd[]  = { "wl-sysact", NULL };
 static const char *webcmd[]     = { "chromium", NULL };
 static const char *snippet[]    = { "snippet", "0", NULL};
 static const char *mutevol[]    = { "pamixer", "-t", NULL };
-static const char *audioconf[]    = { "setsid", "-f", "foot", "-e" , "pulsemixer", NULL };
+static const char *audioconf[]  = { "setsid", "-f", "foot", "-e" , "pulsemixer", NULL };
 
 #include "shiftview.c"
 
@@ -148,7 +148,7 @@ static const Key keys[] = {
 	TAGKEYS(          XKB_KEY_9, XKB_KEY_parenleft,                             8),
 
     { MODKEY,                    XKB_KEY_q,                     killclient,     {0} },
-    { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_Q,                     spawn,          {.v = lockcmd} },
+    { MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_Q,                     spawn,          {.v = sysactcmd} },
 	
     { MODKEY,                    XKB_KEY_w,                     spawn,          {.v = webcmd} },
 	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_W,                     spawn,          {.v = suspendcmd} },
